@@ -2,76 +2,71 @@ import React, { useState, useRef } from 'react';
 
 const CounterStopwatch = () => {
   const [count, setCount] = useState(0);
-
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef(null);
 
-  const startStopwatch = () => {
+  const start = () => {
     if (!isRunning) {
       setIsRunning(true);
-      intervalRef.current = setInterval(() => {
-        setTime(prev => prev + 1);
-      }, 1000);
+      intervalRef.current = setInterval(() => setTime(t => t + 1), 1000);
     }
   };
 
-  const stopStopwatch = () => {
+  const stop = () => {
     clearInterval(intervalRef.current);
     setIsRunning(false);
   };
 
-  const resetStopwatch = () => {
+  const reset = () => {
     clearInterval(intervalRef.current);
     setIsRunning(false);
     setTime(0);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-md space-y-10">
-        <h1 className="text-3xl font-bold text-center text-gray-800">Counter & Stopwatch</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm text-center space-y-8">
+        <h1 className="text-2xl font-bold text-gray-500">Counter & Stopwatch</h1>
 
-        {/* Counter Section */}
-        <div className="bg-blue-50 p-6 rounded-xl shadow-inner">
-          <h2 className="text-xl font-semibold text-blue-700 mb-4 text-center">Counter</h2>
-          <div className="flex items-center justify-center gap-6">
+        {/* Counter */}
+        <div>
+          <p className="text-lg font-semibold mb-3">Counter: {count}</p>
+          <div className="flex justify-center gap-4">
             <button
               onClick={() => setCount(count - 1)}
-              className="bg-red-200 hover:bg-red-300 text-red-800 px-6 py-3 text-lg font-semibold rounded-lg"
+              className="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded"
             >
               -
             </button>
-            <span className="text-2xl font-bold">{count}</span>
             <button
               onClick={() => setCount(count + 1)}
-              className="bg-green-200 hover:bg-green-300 text-green-800 px-6 py-3 text-lg font-semibold rounded-lg"
+              className="bg-green-100 hover:bg-green-200 text-green-300 px-4 py-2 rounded"
             >
               +
             </button>
           </div>
         </div>
 
-        {/* Stopwatch Section */}
-        <div className="bg-yellow-50 p-6 rounded-xl shadow-inner">
-          <h2 className="text-xl font-semibold text-yellow-700 mb-4 text-center">Stopwatch</h2>
-          <div className="text-2xl font-bold text-center mb-4">{time}s</div>
+        {/* Stopwatch */}
+        <div>
+          <p className="text-lg font-semibold mb-3">Time: {time}s</p>
           <div className="flex justify-center gap-3">
             <button
-              onClick={startStopwatch}
-              className="bg-blue-200 hover:bg-blue-300 text-blue-800 px-6 py-3 text-lg font-semibold rounded-lg"
+              onClick={start}
+              className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded"
             >
               Start
             </button>
             <button
-              onClick={stopStopwatch}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 text-lg font-semibold rounded-lg"
+              onClick={stop}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded"
             >
               Stop
             </button>
             <button
-              onClick={resetStopwatch}
-              className="bg-red-200 hover:bg-red-300 text-red-800 px-6 py-3 text-lg font-semibold rounded-lg"
+              onClick={reset}
+              className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-4 py-2 rounded"
             >
               Reset
             </button>
